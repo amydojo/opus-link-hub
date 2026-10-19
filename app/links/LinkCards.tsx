@@ -77,7 +77,10 @@ export default function LinkCards() {
         <div className={styles.linkFooter}>
           <span>OPUS / DR. FREW</span>
           <a href="https://www.instagram.com/opusresults/" aria-label="OPUS results on Instagram">
-            @opusresults <span aria-hidden="true">↗</span>
+            @opusresults
+            <svg className={styles.socialArrow} viewBox="0 0 20 20" aria-hidden="true" focusable="false">
+              <path d="M4.75 15.25 15 5m-8.25 0H15v8.25" fill="none" stroke="currentColor" strokeWidth="1.3" />
+            </svg>
           </a>
         </div>
         <p className={styles.disclaimer}>Consultations are by request. Individual results vary.</p>
