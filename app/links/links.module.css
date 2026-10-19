@@ -19,7 +19,7 @@
   text-rendering: optimizeLegibility;
 }
 .page * { box-sizing: border-box; }
-.page a { -webkit-tap-highlight-color: transparent; }
+.page a { -webkit-tap-highlight-color: transparent; touch-action: manipulation; }
 .container {
   width: min(100%, 550px);
   min-height: 100vh;
@@ -27,17 +27,17 @@
   margin: 0 auto;
   display: flex;
   flex-direction: column;
-  padding: clamp(26px, 4.5vh, 40px) clamp(24px, 6vw, 42px) 27px;
+  padding: clamp(23px, 3.9svh, 38px) clamp(22px, 5.8vw, 40px)
+    max(24px, calc(env(safe-area-inset-bottom, 0px) + 16px));
 }
 .skipLink { position: absolute; top: -100px; left: 14px; z-index: 20; padding: 12px; background: var(--paper); color: var(--espresso); }
 .skipLink:focus { top: 12px; }
-
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 12px;
-  padding-bottom: 25px;
+  padding-bottom: 22px;
   border-bottom: 1px solid var(--rule);
 }
 .brand {
@@ -47,17 +47,19 @@
   text-decoration: none;
   color: var(--paper);
   gap: 1px;
+  min-height: 44px;
+  justify-content: center;
 }
 .brandName {
   font-family: var(--display);
-  font-size: 41px;
+  font-size: 40px;
   font-weight: 500;
   letter-spacing: .095em;
   line-height: .80;
 }
 .brandDescriptor {
   font-family: var(--utility);
-  font-size: 6.5px;
+  font-size: 7px;
   font-weight: 500;
   letter-spacing: .31em;
   padding-left: 3px;
@@ -68,41 +70,32 @@
   color: var(--muted);
   font-size: 9px;
   font-weight: 500;
-  letter-spacing: .12em;
+  letter-spacing: .10em;
   white-space: nowrap;
 }
-
-.intro { padding-top: clamp(67px, 10svh, 95px); }
-.sectionIndex,
-.linksHeading {
+.intro { padding-top: clamp(38px, 6.5svh, 67px); }
+.sectionIndex, .linksHeading {
   display: flex;
   justify-content: space-between;
   align-items: center;
   color: var(--clay);
-  font-size: 9px;
+  font-size: 10px;
   font-weight: 500;
-  letter-spacing: .19em;
+  letter-spacing: .15em;
   line-height: 1.35;
 }
-.sectionIndex { margin-bottom: 22px; }
+.sectionIndex { margin-bottom: 16px; }
 .title {
   margin: 0;
   font-family: var(--display);
+  font-size: clamp(70px, 17vw, 88px);
   font-weight: 400;
-  letter-spacing: -.028em;
-  line-height: .83;
+  letter-spacing: -.038em;
+  line-height: .95;
+  white-space: nowrap;
 }
-.titleFirst,
-.titleLast { display: block; }
-.titleFirst { font-size: clamp(60px, 13.5vw, 79px); }
-.titleLast {
-  font-size: clamp(83px, 19vw, 112px);
-  margin-top: 7px;
-  letter-spacing: -.045em;
-}
-.period { color: var(--clay); }
 .credential {
-  margin: 26px 0 0;
+  margin: 17px 0 0;
   color: var(--paper);
   font-size: 13px;
   font-weight: 500;
@@ -110,28 +103,27 @@
   letter-spacing: .005em;
 }
 .specialty {
-  margin: 5px 0 0;
+  margin: 4px 0 0;
   color: var(--muted);
   font-size: 12px;
-  line-height: 1.6;
+  line-height: 1.55;
 }
-
-.linksSection { margin-top: clamp(62px, 9.5svh, 85px); }
+.linksSection { margin-top: clamp(36px, 5.6svh, 58px); }
 .linksHeading {
-  margin-bottom: 14px;
+  margin-bottom: 12px;
   color: var(--muted);
 }
 .linkList { display: flex; flex-direction: column; gap: 0; }
 .linkCard {
-  min-height: 111px;
+  min-height: 90px;
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 13px;
   text-decoration: none;
   color: var(--paper);
-  padding: 17px 5px;
+  padding: 13px 6px;
   border-bottom: 1px solid var(--rule);
-  transition: background-color 230ms ease, border-color 230ms ease, padding 230ms ease;
+  transition: background-color 190ms ease, border-color 190ms ease, transform 190ms ease;
 }
 .linkCard:focus-visible, .brand:focus-visible, .socialLink:focus-visible {
   outline: 2px solid var(--clay);
@@ -141,98 +133,107 @@
   font-size: 10px;
   letter-spacing: .08em;
   align-self: flex-start;
-  margin-top: 5px;
+  margin-top: 6px;
   color: var(--muted);
-  flex: 0 0 29px;
+  flex: 0 0 26px;
 }
 .linkCopy { flex: 1; min-width: 0; display: flex; flex-direction: column; align-items: flex-start; }
 .linkCategory {
-  font-size: 9px;
+  font-size: 10px;
   font-weight: 500;
-  letter-spacing: .17em;
+  letter-spacing: .12em;
   color: var(--muted);
-  line-height: 1.4;
+  line-height: 1.35;
 }
 .linkTitle {
-  margin-top: 4px;
+  margin-top: 5px;
   font-family: var(--display);
-  font-size: clamp(28px, 6.8vw, 34px);
+  font-size: clamp(29px, 6.5vw, 33px);
   font-weight: 500;
   letter-spacing: -.016em;
-  line-height: 1.03;
+  line-height: 1.04;
 }
 .linkDescription {
   color: var(--muted);
-  font-size: 10.5px;
-  line-height: 1.45;
-  margin-top: 6px;
+  font-size: 11.5px;
+  line-height: 1.5;
+  margin-top: 5px;
 }
-.arrow { flex: none; color: var(--paper); transition: transform 230ms ease; }
-.linkCard:hover .arrow { transform: translate(3px,-3px); }
-.secondary:hover { background: rgba(255,255,255,.018); padding-left: 10px; }
-
+.arrow { flex: none; color: var(--paper); transition: transform 190ms ease; }
 .primary {
-  min-height: 126px;
-  padding: 18px 20px;
+  min-height: 107px;
+  padding: 15px 17px;
   background: var(--paper);
   color: var(--espresso);
-  border: none;
+  border: 1px solid var(--paper);
 }
 .primary .linkNumber,
 .primary .linkCategory,
-.primary .linkDescription { color: #75665c; }
-.primary .linkTitle,
-.primary .arrow { color: var(--espresso); }
-.primary:hover { background: #fff8ee; }
-.primary:hover .arrow { transform: translate(3px,-3px); }
-.primary + .secondary { margin-top: 9px; }
-
+.primary .linkDescription { color: #706157; }
+.primary .linkTitle, .primary .arrow { color: var(--espresso); }
+.primary + .secondary { margin-top: 8px; }
 .footer {
   margin-top: auto;
-  padding-top: 56px;
+  padding-top: clamp(38px, 5.2svh, 56px);
 }
 .footerTop {
   border-top: 1px solid var(--rule);
-  padding-top: 18px;
+  padding-top: 15px;
   display: flex;
   justify-content: space-between;
-  gap: 8px;
+  gap: 10px;
   align-items: center;
 }
-.footerMark {
-  color: var(--soft);
-  font-size: 9px;
-  letter-spacing: .105em;
-}
+.footerMark { color: var(--soft); font-size: 9px; letter-spacing: .10em; }
 .socialLink {
   color: var(--paper);
   text-decoration: none;
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 500;
   white-space: nowrap;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
 }
-.socialLink span { color: var(--clay); }
-.socialLink:hover { text-decoration: underline; text-underline-offset: 4px; }
+.socialLink span { margin-left: 7px; color: var(--clay); }
 .footer p {
-  margin: 15px 0 0;
+  margin: 8px 0 0;
   max-width: 465px;
   color: var(--muted);
-  font-size: 10px;
-  line-height: 1.6;
+  font-size: 10.5px;
+  line-height: 1.58;
 }
+@media (hover: hover) and (pointer: fine) {
+  .primary:hover { background: #fff9f0; }
+  .secondary:hover { background: rgba(255,255,255,.028); border-color: rgba(237,224,211,.38); }
+  .linkCard:hover .arrow { transform: translate(3px, -3px); }
+  .socialLink:hover { text-decoration: underline; text-underline-offset: 4px; }
+}
+.linkCard:active { transform: scale(.993); }
+.primary:active { background: #e5dbd0; }
+.secondary:active { background: rgba(255,255,255,.07); }
+.linkCard:active .arrow { transform: translate(2px, -2px); }
 @media (max-width: 370px) {
   .container { padding-inline: 20px; }
   .headerDetail { font-size: 8px; }
-  .intro { padding-top: 56px; }
-  .titleFirst { font-size: 58px; }
-  .titleLast { font-size: 79px; }
-  .linksSection { margin-top: 45px; }
-  .linkCard { min-height: 97px; }
-  .primary { min-height: 111px; }
+  .intro { padding-top: 36px; }
+  .title { font-size: clamp(64px, 19.5vw, 70px); }
+  .linksSection { margin-top: 34px; }
+  .linkCard { min-height: 88px; }
+  .primary { min-height: 103px; padding-inline: 14px; }
   .linkTitle { font-size: 28px; }
-  .footer { padding-top: 38px; }
+  .linkDescription { font-size: 11px; }
+  .footer { padding-top: 36px; }
+}
+@media (max-height: 730px) {
+  .intro { padding-top: 36px; }
+  .linksSection { margin-top: 32px; }
+  .linkCard { min-height: 86px; }
+  .primary { min-height: 100px; }
+  .footer { padding-top: 30px; }
 }
 @media (prefers-reduced-motion: reduce) {
   .linkCard, .arrow { transition: none; }
-  .linkCard:hover .arrow, .primary:hover .arrow { transform: none; }
+  .linkCard:active, .linkCard:active .arrow { transform: none; }
+  .linkCard:hover .arrow { transform: none; }
 }
