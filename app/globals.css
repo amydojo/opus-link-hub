@@ -1,4 +1,10 @@
-html { scroll-behavior: smooth; }
-body { margin: 0; }
+/* Standalone OPUS preview: keep Safari overscroll from revealing a white document underneath. */
+html, body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  background: #241b17;
+  overscroll-behavior-y: none;
+}
+body { overflow: hidden; }
 *:focus-visible { outline: 2px solid #c38c73; outline-offset: 3px; }
-@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
