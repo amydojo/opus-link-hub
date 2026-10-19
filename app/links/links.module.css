@@ -72,6 +72,9 @@
   text-decoration: none;
 }
 .wordmark {
+  /* Optical correction: the curved O begins slightly inside its type box. */
+  position: relative;
+  left: -3px;
   font-family: var(--display);
   font-size: 44px;
   font-weight: 500;
@@ -177,12 +180,19 @@
 .linkFooter a {
   display: inline-flex;
   align-items: center;
-  min-height: 36px;
+  min-height: 44px;
   color: #e9e0d6;
   text-decoration: none;
   font-size: 11px;
 }
-.linkFooter a span { margin-left: 4px; color: #c18c72; }
+.socialArrow {
+  width: 15px;
+  height: 15px;
+  flex: none;
+  margin-left: 6px;
+  color: #c18c72;
+  transition: transform 180ms var(--ease);
+}
 .disclaimer {
   margin: 6px 0 0;
   color: #ad9a8b;
@@ -193,6 +203,7 @@
   .link:hover { padding-left: 5px; background: rgba(243,232,220,.026); }
   .link:hover .arrow { transform: translate(3px,-3px); }
   .linkFooter a:hover { text-decoration: underline; text-underline-offset: 4px; }
+  .linkFooter a:hover .socialArrow { transform: translate(2px, -2px); }
 }
 @media (max-height:710px) {
   .hero { padding: max(16px,env(safe-area-inset-top,0px)) 24px 12px; }
@@ -204,7 +215,7 @@
   .link { min-height: 57px; }
   .linkLabel { font-size: 27px; }
   .linkFooter { margin-top: 7px; }
-  .linkFooter a { min-height: 32px; }
+  .linkFooter a { min-height: 36px; }
   .disclaimer { margin-top: 3px; }
 }
 @media (max-width:340px) {
