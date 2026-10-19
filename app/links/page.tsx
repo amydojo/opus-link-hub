@@ -32,14 +32,11 @@ export default function LinksPage() {
         <section className={styles.intro} aria-labelledby="surgeon-name">
           <div className={styles.sectionIndex}>
             <span>THE SURGEON</span>
-            <span>01 / OPUS</span>
+            <span>OPUS / UPLAND</span>
           </div>
-          <h1 id="surgeon-name" className={styles.title}>
-            <span className={styles.titleFirst}>Dr. Tyler</span>
-            <span className={styles.titleLast}>Frew<span className={styles.period}>.</span></span>
-          </h1>
+          <h1 id="surgeon-name" className={styles.title}>Dr. Frew</h1>
           <p className={styles.credential}>ABPS Board-Certified Plastic Surgeon</p>
-          <p className={styles.specialty}>Breast &amp; body surgery · Upland, CA</p>
+          <p className={styles.specialty}>Breast &amp; body surgery</p>
         </section>
 
         <section className={styles.linksSection} id="official-links" aria-label="Official OPUS links">
