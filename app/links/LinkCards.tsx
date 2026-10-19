@@ -29,65 +29,101 @@ function recordLinkClick(link: LinkItem, sameSite: boolean) {
   });
 }
 
-/** A quiet, engraved form rather than a decorative UI animation. */
-function FormStudy() {
+const frewLetters = ["F", "r", "e", "w"] as const;
+
+/**
+ * The name is the interactive artwork. No second symbol or decorative object.
+ * Movement is local to the letter under the pointer; it never shifts the links,
+ * captures scroll, or gates navigation.
+ */
+function KineticName() {
+  const wordRef = useRef<HTMLSpanElement>(null);
+  const lettersRef = useRef<Array<HTMLSpanElement | null>>([]);
+
+  function resetLetters() {
+    for (const letter of lettersRef.current) {
+      letter?.style.removeProperty("--lift");
+      letter?.style.removeProperty("--turn");
+      letter?.style.removeProperty("--tone");
+    }
+  }
+
+  function moveLetters(event: ReactPointerEvent<HTMLHeadingElement>) {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if (event.pointerType === "touch" && event.buttons === 0) return;
+    const word = wordRef.current;
+    if (!word) return;
+
+    const rect = word.getBoundingClientRect();
+    if (!rect.width) return;
+    const x = (event.clientX - rect.left) / rect.width;
+
+    lettersRef.current.forEach((letter, i) => {
+      if (!letter) return;
+      const center = (i + .5) / frewLetters.length;
+      const strength = Math.max(0, 1 - Math.abs(x - center) * 2.25);
+      letter.style.setProperty("--lift", `${(-12 * strength).toFixed(1)}px`);
+      letter.style.setProperty("--turn", `${((i < 2 ? -1 : 1) * 2.1 * strength).toFixed(2)}deg`);
+      letter.style.setProperty("--tone", strength.toFixed(2));
+    });
+  }
+
+  function impressLetters() {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    lettersRef.current.forEach((letter, i) => {
+      if (!letter) return;
+      letter.animate(
+        [
+          { transform: "translateY(0px) rotate(0deg)", offset: 0 },
+          { transform: `translateY(${i % 2 === 0 ? -11 : -7}px) rotate(${i % 2 === 0 ? -1.5 : 1.5}deg)`, offset: .28 },
+          { transform: "translateY(1px) rotate(0deg)", offset: .66 },
+          { transform: "translateY(0px) rotate(0deg)", offset: 1 },
+        ],
+        { duration: 650, delay: i * 35, easing: "cubic-bezier(.22,1,.36,1)" }
+      );
+    });
+  }
+
   return (
-    <svg className={styles.formStudy} viewBox="0 0 400 400" aria-hidden="true" focusable="false">
-      <g fill="none" stroke="currentColor" strokeWidth=".9">
-        <ellipse cx="202" cy="198" rx="141" ry="119" opacity=".24" />
-        <ellipse cx="202" cy="198" rx="133" ry="125" opacity=".32" />
-        <ellipse cx="202" cy="198" rx="125" ry="132" opacity=".37" />
-        <ellipse cx="202" cy="198" rx="117" ry="138" opacity=".40" />
-        <ellipse cx="202" cy="198" rx="109" ry="143" opacity=".49" />
-        <ellipse cx="202" cy="198" rx="101" ry="147" opacity=".48" />
-        <ellipse cx="202" cy="198" rx="93" ry="150" opacity=".46" />
-        <ellipse cx="202" cy="198" rx="84" ry="153" opacity=".35" />
-        <ellipse cx="202" cy="198" rx="75" ry="156" opacity=".29" />
-        <ellipse cx="202" cy="198" rx="64" ry="158" opacity=".20" />
-      </g>
-      <ellipse
-        cx="202" cy="198" rx="141" ry="119" fill="none"
-        stroke="#fff8ea" strokeWidth="1.6" opacity=".42"
-        transform="translate(-3,-2)"
-      />
-    </svg>
+    <h1
+      id="surgeon-name"
+      className={styles.name}
+      aria-label="Dr. Frew"
+      onPointerMove={moveLetters}
+      onPointerLeave={resetLetters}
+      onPointerCancel={resetLetters}
+      onPointerUp={resetLetters}
+      onClick={impressLetters}
+    >
+      <span className={styles.nameDoctor} aria-hidden="true">Dr.</span>
+      <span ref={wordRef} className={styles.nameSurname} aria-hidden="true">
+        {frewLetters.map((character, index) => (
+          <span
+            key={index}
+            className={styles.letter}
+            ref={(element) => { lettersRef.current[index] = element; }}
+          >
+            {character}
+          </span>
+        ))}
+      </span>
+    </h1>
   );
 }
 
 export default function LinkCards() {
-  const shellRef = useRef<HTMLElement>(null);
   const [sameSite, setSameSite] = useState(false);
-  const [active, setActive] = useState<number | null>(null);
 
   useEffect(() => {
     const hostname = window.location.hostname;
     setSameSite(hostname === "opusplasticsurgery.ai" || hostname === "www.opusplasticsurgery.ai");
   }, []);
 
-  function moveForm(event: ReactPointerEvent<HTMLElement>) {
-    // Passive response only. Do not capture touch gestures or interfere with scrolling.
-    const rect = event.currentTarget.getBoundingClientRect();
-    if (!rect.width || !rect.height) return;
-    const x = (event.clientX - rect.left) / rect.width - 0.5;
-    const y = (event.clientY - rect.top) / rect.height - 0.5;
-    shellRef.current?.style.setProperty("--px", `${(x * 15).toFixed(1)}px`);
-    shellRef.current?.style.setProperty("--py", `${(y * 12).toFixed(1)}px`);
-  }
-
-  function resetForm() {
-    shellRef.current?.style.setProperty("--px", "0px");
-    shellRef.current?.style.setProperty("--py", "0px");
-  }
-
   return (
-    <main className={styles.shell} ref={shellRef} data-active={active ?? "none"}>
+    <main className={styles.shell}>
       <a className={styles.skipLink} href="#official-links">Skip to links</a>
-      <section
-        className={styles.hero}
-        aria-labelledby="surgeon-name"
-        onPointerMove={moveForm}
-        onPointerLeave={resetForm}
-      >
+
+      <section className={styles.hero} aria-labelledby="surgeon-name">
         <div className={styles.topline}>
           <a className={styles.wordmarkLink} href="https://opusplasticsurgery.ai/" aria-label="OPUS Plastic Surgery home">
             <span className={styles.wordmark}>OPUS</span>
@@ -95,10 +131,8 @@ export default function LinkCards() {
           </a>
           <span className={styles.region}>UPLAND / CALIFORNIA</span>
         </div>
-        <FormStudy />
         <div className={styles.identity}>
-          <span className={styles.kicker}>THE SURGEON</span>
-          <h1 id="surgeon-name" className={styles.name}>Dr. Frew</h1>
+          <KineticName />
           <p className={styles.credential}>ABPS Board-Certified Plastic Surgeon</p>
           <p className={styles.specialty}>Breast &amp; body surgery</p>
         </div>
@@ -110,15 +144,11 @@ export default function LinkCards() {
           <span>01 — 03</span>
         </div>
         <nav className={styles.linkList} aria-label="Explore OPUS">
-          {links.map((link, index) => (
+          {links.map((link) => (
             <a
               key={link.id}
               className={styles.link}
               href={sameSite ? link.internalPath : link.href}
-              onPointerEnter={() => setActive(index)}
-              onPointerLeave={() => setActive(null)}
-              onFocus={() => setActive(index)}
-              onBlur={() => setActive(null)}
               onClick={() => recordLinkClick(link, sameSite)}
             >
               <span className={styles.linkLabel}>{link.title}</span>
