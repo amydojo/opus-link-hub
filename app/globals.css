@@ -1,0 +1,4 @@
+html { scroll-behavior: smooth; }
+body { margin: 0; }
+*:focus-visible { outline: 2px solid #c38c73; outline-offset: 3px; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
