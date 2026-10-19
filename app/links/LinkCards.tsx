@@ -6,11 +6,8 @@ import styles from "./links.module.css";
 type LinkId = "first_access" | "procedures" | "gallery";
 type LinkItem = {
   id: LinkId;
-  number: string;
-  category: string;
-  title: string;
-  description: string;
-  href: string;
+   title: string;
+   href: string;
   internalPath: string;
   primary?: boolean;
 };
@@ -18,29 +15,20 @@ type LinkItem = {
 const links: readonly LinkItem[] = [
   {
     id: "first_access",
-    number: "01",
-    category: "CONSULTATIONS",
     title: "Request First Access",
-    description: "A private window to request an opening consultation",
     href: "https://opusplasticsurgery.ai/first-access",
     internalPath: "/first-access",
     primary: true,
   },
   {
     id: "procedures",
-    number: "02",
-    category: "BREAST & BODY",
-    title: "Explore Procedures",
-    description: "Discover the surgical services offered at OPUS",
+    title: "Procedures",
     href: "https://opusplasticsurgery.ai/procedures",
     internalPath: "/procedures",
   },
   {
     id: "gallery",
-    number: "03",
-    category: "PATIENT RESULTS",
     title: "Before & After",
-    description: "Explore the patient gallery",
     href: "https://opusplasticsurgery.ai/gallery",
     internalPath: "/gallery",
   },
@@ -102,12 +90,7 @@ export default function LinkCards() {
           href={destination(link, onOfficialDomain)}
           onClick={() => recordLinkClick(link, onOfficialDomain)}
         >
-          <span className={styles.linkNumber}>{link.number}</span>
-          <span className={styles.linkCopy}>
-            <span className={styles.linkCategory}>{link.category}</span>
-            <span className={styles.linkTitle}>{link.title}</span>
-            <span className={styles.linkDescription}>{link.description}</span>
-          </span>
+          <span className={styles.linkTitle}>{link.title}</span>
           <ArrowIcon />
         </a>
       ))}
