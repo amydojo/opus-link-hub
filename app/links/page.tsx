@@ -26,42 +26,28 @@ export default function LinksPage() {
             <span className={styles.brandName}>OPUS</span>
             <span className={styles.brandDescriptor}>PLASTIC SURGERY</span>
           </a>
-          <span className={styles.headerDetail}>UPLAND, CALIFORNIA</span>
+          <span className={styles.headerDetail}>OFFICIAL LINKS</span>
         </header>
 
         <section className={styles.intro} aria-labelledby="surgeon-name">
-          <div className={styles.sectionIndex}>
-            <span>THE SURGEON</span>
-            <span>OPUS / UPLAND</span>
-          </div>
           <h1 id="surgeon-name" className={styles.title}>Dr. Frew</h1>
           <p className={styles.credential}>ABPS Board-Certified Plastic Surgeon</p>
-          <p className={styles.specialty}>Breast &amp; body surgery</p>
+          <p className={styles.specialty}>Upland, California</p>
         </section>
 
         <section className={styles.linksSection} id="official-links" aria-label="Official OPUS links">
-          <div className={styles.linksHeading}>
-            <span>EXPLORE OPUS</span>
-            <span>01 — 03</span>
-          </div>
           <LinkCards />
         </section>
 
         <footer className={styles.footer}>
-          <div className={styles.footerTop}>
-            <span className={styles.footerMark}>OPUS / PATIENT EXPERIENCE</span>
-            <a
-              className={styles.socialLink}
-              href="https://www.instagram.com/opusresults/"
-              aria-label="OPUS Results Instagram account"
-            >
-              @opusresults <span aria-hidden="true">↗</span>
-            </a>
-          </div>
-          <p>
-            First Access offers an opportunity to request consultation availability; appointments are not guaranteed.
-            Before-and-after results vary between patients.
-          </p>
+          <a
+            className={styles.socialLink}
+            href="https://www.instagram.com/opusresults/"
+            aria-label="Visit OPUS Results on Instagram"
+          >
+            @opusresults <span aria-hidden="true">↗</span>
+          </a>
+          <p>Consultations are by request. Individual results vary.</p>
         </footer>
       </main>
     </div>
