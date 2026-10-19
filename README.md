@@ -1,35 +1,41 @@
-# OPUS — Surgeon Link Hub
+# OPUS — Dr. Frew Link Hub
 
-Independent **Next.js App Router** design prototype for Dr. Tyler Frew's OPUS Plastic Surgery Instagram bio. Built as a private design-review workflow with a live Vercel preview and an integration-ready `/links` route.
+Standalone **Next.js App Router** design preview of the official OPUS Plastic Surgery links page.
+Built for design review on a separate Vercel project and an easy handoff into the existing OPUS website.
 
-## Pages
-- `/` displays the hub on the standalone Vercel preview.
-- `/links` displays the identical hub; copy `app/links/` into the official OPUS Next.js app for production.
-- All links point to real OPUS destinations; no login, form, CMS, or patient data.
+## URLs
 
-## Destinations
-1. **Get First Access** → `https://opusplasticsurgery.ai/first-access` (consultation requests, not direct booking).
-2. **Patient Results** → `https://www.instagram.com/opusresults/`.
-3. **Explore OPUS** → `https://opusplasticsurgery.ai/`.
+- Preview: https://opus-link-hub.vercel.app
+- Standalone root and /links render the same page.
+- Final destination after the main-site integration: https://opusplasticsurgery.ai/links
 
-## Development
-```sh
-npm install
-npm run dev
-npm run build
-```
-Vercel deploys the `main` branch automatically. The current Vercel deployment is for **internal preview only** and is not the public marketing destination. Vercel Hobby restricts commercial usage; arrange an eligible business plan if using Vercel for an ongoing OPUS commercial deployment.
+## Link destinations
 
-## Handoff to Dr. Frew / Claude Code
-In the existing `opusplasticsurgery.ai` repository:
-1. Add the folder `app/links/` (or `src/app/links/` as appropriate).
-2. Swap the typographic OPUS fallback for the official wordmark, and align fonts with existing site tokens. Scoped CSS prevents global clashes.
-3. Do **not** copy `app/page.tsx`, `app/layout.tsx`, or `app/globals.css`; these are only for this standalone preview.
-4. Preserve the site's existing Google Analytics, tag manager, CSP, forms, Google Ads GCLID, Pixel, CRM and all lead conversions.
-5. Verify `/links` in an official-site staging deployment, including mobile and actual URLs. The `opus_linkhub_click` dataLayer event is a navigation event, **not** a consultation conversion.
-6. Publish on the official business Vercel project at `https://opusplasticsurgery.ai/links`, then update the Instagram bio and retire the independent prototype URL.
+1. **Request First Access** → https://opusplasticsurgery.ai/first-access (request only, no immediate booking guarantee)
+2. **Explore Procedures** → https://opusplasticsurgery.ai/procedures
+3. **Before & After Gallery** → https://opusplasticsurgery.ai/gallery
+4. **@opusresults** → https://www.instagram.com/opusresults/ (secondary footer link)
+5. Official OPUS logo in header → https://opusplasticsurgery.ai/
 
-## Notes
-- No patient photos or patient health information are included.
-- `@opusresults` should be populated with consented cases before being promoted as a finished gallery.
-- No new paid services or trackers are required.
+These destinations are absolute on the independent Vercel preview and relative on the official OPUS domain so no internal navigation creates fake campaign attribution.
+
+## Visual system
+
+- Typographic OPUS lockup and display name: Cormorant Garamond, confirmed in the official OPUS Canva Brand Kit Canon.
+- Utility text: Inter, confirmed by the same brand canon.
+- Restrained espresso and warm paper editorial layout, warm cognac-clay accents.
+- The typographic wordmark is not represented as the canonical approved SVG; replace it with the authentic OPUS asset if supplied.
+- Fonts load from Bunny Fonts (same provider used by the main OPUS site). Preserve or adjust CSP allowances during integration.
+- The link route is self-contained with a CSS Module.
+
+## Handoff to Frew / Claude Code
+
+1. Copy only the `app/links/` folder into the existing main-site project (or `src/app/links/`).
+2. Preserve all existing global components, analytics, lead tracking, forms, CRM and Content Security Policy.
+3. Replace typography-based OPUS wordmark with official vector/image logo if available, preserving proportions and accessibility.
+4. Check font loading (Cormorant Garamond and Inter) against the existing site font setup/CSP.
+5. Preview the page at `/links` on desktop and mobile; confirm all destinations.
+6. The `opus_linkhub_click` dataLayer event is optional navigation tracking and is **not** a lead conversion; do not count it as `first_access_submit`.
+7. Deploy under the official OPUS domain and update the @dr.frew Instagram link only after production checks.
+
+This preview is intentionally private-to-workflow, not a public commercial OPUS advertising destination. The connected personal Vercel account uses Hobby; commercial hosting belongs on the approved business site/plan. No patient photos or data are included.
