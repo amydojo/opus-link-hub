@@ -1,7 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import type { PointerEvent as ReactPointerEvent } from "react";
+import { useEffect, useState } from "react";
 import styles from "./links.module.css";
 
 type LinkId = "first_access" | "procedures" | "gallery";
@@ -21,94 +20,13 @@ const links: readonly LinkItem[] = [
 type DataLayerWindow = Window & { dataLayer?: Array<Record<string, unknown>> };
 
 function recordLinkClick(link: LinkItem, sameSite: boolean) {
+  // A navigation event only; never count as first_access_submit.
   (window as DataLayerWindow).dataLayer?.push({
     event: "opus_linkhub_click",
     link_id: link.id,
     link_url: sameSite ? link.internalPath : link.href,
     link_hub: "dr_frew",
   });
-}
-
-const frewLetters = ["F", "r", "e", "w"] as const;
-
-/**
- * The name is the interactive artwork. No second symbol or decorative object.
- * Movement is local to the letter under the pointer; it never shifts the links,
- * captures scroll, or gates navigation.
- */
-function KineticName() {
-  const wordRef = useRef<HTMLSpanElement>(null);
-  const lettersRef = useRef<Array<HTMLSpanElement | null>>([]);
-
-  function resetLetters() {
-    for (const letter of lettersRef.current) {
-      letter?.style.removeProperty("--lift");
-      letter?.style.removeProperty("--turn");
-      letter?.style.removeProperty("--tone");
-    }
-  }
-
-  function moveLetters(event: ReactPointerEvent<HTMLHeadingElement>) {
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    if (event.pointerType === "touch" && event.buttons === 0) return;
-    const word = wordRef.current;
-    if (!word) return;
-
-    const rect = word.getBoundingClientRect();
-    if (!rect.width) return;
-    const x = (event.clientX - rect.left) / rect.width;
-
-    lettersRef.current.forEach((letter, i) => {
-      if (!letter) return;
-      const center = (i + .5) / frewLetters.length;
-      const strength = Math.max(0, 1 - Math.abs(x - center) * 2.25);
-      letter.style.setProperty("--lift", `${(-12 * strength).toFixed(1)}px`);
-      letter.style.setProperty("--turn", `${((i < 2 ? -1 : 1) * 2.1 * strength).toFixed(2)}deg`);
-      letter.style.setProperty("--tone", strength.toFixed(2));
-    });
-  }
-
-  function impressLetters() {
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    lettersRef.current.forEach((letter, i) => {
-      if (!letter) return;
-      letter.animate(
-        [
-          { transform: "translateY(0px) rotate(0deg)", offset: 0 },
-          { transform: `translateY(${i % 2 === 0 ? -11 : -7}px) rotate(${i % 2 === 0 ? -1.5 : 1.5}deg)`, offset: .28 },
-          { transform: "translateY(1px) rotate(0deg)", offset: .66 },
-          { transform: "translateY(0px) rotate(0deg)", offset: 1 },
-        ],
-        { duration: 650, delay: i * 35, easing: "cubic-bezier(.22,1,.36,1)" }
-      );
-    });
-  }
-
-  return (
-    <h1
-      id="surgeon-name"
-      className={styles.name}
-      aria-label="Dr. Frew"
-      onPointerMove={moveLetters}
-      onPointerLeave={resetLetters}
-      onPointerCancel={resetLetters}
-      onPointerUp={resetLetters}
-      onClick={impressLetters}
-    >
-      <span className={styles.nameDoctor} aria-hidden="true">Dr.</span>
-      <span ref={wordRef} className={styles.nameSurname} aria-hidden="true">
-        {frewLetters.map((character, index) => (
-          <span
-            key={index}
-            className={styles.letter}
-            ref={(element) => { lettersRef.current[index] = element; }}
-          >
-            {character}
-          </span>
-        ))}
-      </span>
-    </h1>
-  );
 }
 
 export default function LinkCards() {
@@ -131,18 +49,16 @@ export default function LinkCards() {
           </a>
           <span className={styles.region}>UPLAND / CALIFORNIA</span>
         </div>
+
         <div className={styles.identity}>
-          <KineticName />
+          <h1 id="surgeon-name" className={styles.name}>Dr. Frew</h1>
+          <div className={styles.identityRule} aria-hidden="true" />
           <p className={styles.credential}>ABPS Board-Certified Plastic Surgeon</p>
           <p className={styles.specialty}>Breast &amp; body surgery</p>
         </div>
       </section>
 
       <section id="official-links" className={styles.destinations} aria-label="Official OPUS links">
-        <div className={styles.indexHeading} aria-hidden="true">
-          <span>THE PRACTICE</span>
-          <span>01 — 03</span>
-        </div>
         <nav className={styles.linkList} aria-label="Explore OPUS">
           {links.map((link) => (
             <a
