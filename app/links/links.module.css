@@ -1,0 +1,56 @@
+.page {
+  --espresso:#231b18; --cream:#f3ede5; --warm-white:#e9ddd2; --muted:#bcaba1; --clay:#c38c73; --rule:#5a4a42;
+  position:relative; isolation:isolate; min-height:100vh; min-height:100svh;
+  color:var(--cream); background-color:var(--espresso);
+  background-image:radial-gradient(ellipse 85% 60% at 75% -10%, #362924 0%, #231b18 100%);
+  font-family:var(--font-sans, var(--font-neue-haas, Arial, Helvetica, sans-serif));
+  -webkit-font-smoothing:antialiased;
+}
+.page * { box-sizing:border-box }
+.container {
+  position:relative; width:min(100%,510px); min-height:100vh; min-height:100svh;
+  margin:0 auto; padding:clamp(26px,4.2vh,47px) clamp(23px,5vw,34px) 27px;
+  display:flex; flex-direction:column;
+}
+.skipLink { position:absolute; top:-100px; left:12px; z-index:5; padding:10px 14px; color:#231b18; background:#fff }
+.skipLink:focus { top:12px }
+.header { display:flex; align-items:center; justify-content:space-between; padding-bottom:22px; border-bottom:1px solid var(--rule) }
+.brand { display:inline-flex; flex-direction:column; align-items:flex-start; gap:5px; color:var(--cream); text-decoration:none }
+.brandName { font-size:25px; letter-spacing:.2em; line-height:.95; font-weight:500 }
+.brandDescriptor { font-size:7px; letter-spacing:.33em; line-height:1.2; color:var(--muted) }
+.headerDetail { font-size:10px; letter-spacing:.16em; color:var(--muted) }
+.intro { padding-top:clamp(64px,11svh,110px) }
+.eyebrow { margin:0 0 20px; font-size:10px; font-weight:500; letter-spacing:.19em; line-height:1.4; color:var(--clay) }
+.title { margin:0; font-size:clamp(48px,11.5vw,70px); font-weight:400; line-height:.98; letter-spacing:-.06em }
+.period { color:var(--clay) }
+.credential { margin:24px 0 0; font-size:15px; letter-spacing:-.01em; line-height:1.45; color:var(--cream) }
+.specialty { margin:5px 0 0; font-size:13px; line-height:1.45; color:var(--muted) }
+.linksSection { margin-top:clamp(55px,8svh,84px) }
+.linksHeading { display:flex; align-items:center; justify-content:space-between; margin:0 0 15px; font-size:10px; font-weight:500; letter-spacing:.14em; color:var(--muted) }
+.linkList { display:grid; gap:10px }
+.linkCard { display:flex; align-items:center; justify-content:space-between; gap:14px; min-height:83px; padding:17px 20px;
+  border:1px solid transparent; color:inherit; text-decoration:none;
+  transition:transform 180ms ease,border-color 180ms ease,background-color 180ms ease }
+.linkCard:hover { transform:translateY(-2px) }
+.linkCard:focus-visible, .brand:focus-visible { outline:2px solid var(--clay); outline-offset:4px }
+.primary { color:var(--espresso); background-color:var(--cream) }
+.primary:hover { background-color:#fffaf5 }
+.secondary { border-color:#79665b; background:rgba(255,255,255,.012) }
+.secondary:hover { border-color:#c4a28e; background:rgba(255,255,255,.045) }
+.linkCopy { display:flex; flex-direction:column; align-items:flex-start; gap:5px }
+.linkTitle { font-size:15px; font-weight:500; letter-spacing:-.005em; line-height:1.25 }
+.linkDescription { font-size:12px; line-height:1.3; opacity:.76 }
+.secondary .linkDescription { color:var(--warm-white) }
+.arrow { flex:none; transition:transform 180ms ease }
+.linkCard:hover .arrow { transform:translate(2px,-2px) }
+.footer { margin-top:auto; padding-top:65px }
+.footerMark { font-size:10px; letter-spacing:.14em; color:#c8b8ad }
+.footer p { max-width:420px; margin:11px 0 0; font-size:11px; line-height:1.55; color:#b8a89e }
+@media(max-width:380px) {
+  .headerDetail { font-size:9px } .linkCard { min-height:76px; padding:14px 16px }
+  .intro { padding-top:53px } .linksSection { margin-top:47px } .footer { padding-top:42px }
+}
+@media(prefers-reduced-motion:reduce) {
+  .linkCard,.arrow { transition:none }
+  .linkCard:hover { transform:none } .linkCard:hover .arrow { transform:none }
+}
