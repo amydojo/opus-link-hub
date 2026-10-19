@@ -1,27 +1,37 @@
 @import url("https://fonts.bunny.net/css?family=cormorant-garamond:400,500,600&family=inter:400,500,600");
 
-/* OPUS — the surgeon's name is the form. No ornamental hero object. */
+/* OPUS — an editorial calling card, not an animated microsite. */
 .shell {
   --paper: #eee7dc;
   --espresso: #241b17;
   --ink: #241b17;
   --clay: #ab775d;
-  --light-rule: rgba(245,230,214,.28);
+  --light-rule: rgba(245,230,214,.27);
   --ease: cubic-bezier(.22,1,.36,1);
   --display: "Cormorant Garamond", Georgia, serif;
   --utility: "Inter", Arial, sans-serif;
 
+  /* Fixed to the actual browser viewport, not the document's scroll height.
+     If enlarged text overflows, ONLY this panel scrolls—not the entire page. */
+  position: fixed;
+  inset: 0;
+  width: min(100%, 485px);
+  height: 100vh;
+  height: 100dvh;
+  margin-inline: auto;
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: none;
+  -webkit-overflow-scrolling: touch;
+
   display: flex;
   flex-direction: column;
-  width: min(100%, 485px);
-  min-height: 100vh;
-  min-height: 100svh;
-  margin-inline: auto;
-  background: var(--paper);
-  box-shadow: 0 22px 115px rgba(0,0,0,.13);
+  color: var(--ink);
+  background: var(--espresso);
   font-family: var(--utility);
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+  box-shadow: 0 22px 115px rgba(0,0,0,.13);
 }
 .shell * { box-sizing: border-box; }
 .shell a { touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
@@ -37,38 +47,36 @@
 .skipLink:focus { top: 10px; }
 
 .hero {
-  position: relative;
-  isolation: isolate;
-  overflow: hidden;
   flex: 1 1 auto;
-  min-height: 290px;
+  min-height: 0;
   display: flex;
   flex-direction: column;
-  padding: max(26px, env(safe-area-inset-top,0px)) 29px 22px;
+  isolation: isolate;
+  padding: max(25px,env(safe-area-inset-top,0px)) 29px 24px;
   color: var(--ink);
-  background: linear-gradient(150deg,#f0eade 0%,#eee7dc 70%,#eae1d5 100%);
+  background: linear-gradient(158deg, #f0eae0 0%, #eee7dc 78%, #eae0d4 100%);
 }
 .topline {
-  position: relative;
-  z-index: 2;
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
   gap: 12px;
 }
 .wordmarkLink {
+  min-height: 44px;
   display: inline-flex;
   flex-direction: column;
+  justify-content: center;
+  flex: none;
   color: var(--ink);
   text-decoration: none;
-  flex: none;
 }
 .wordmark {
   font-family: var(--display);
-  font-size: 45px;
+  font-size: 44px;
   font-weight: 500;
   letter-spacing: .072em;
-  line-height: .77;
+  line-height: .78;
 }
 .wordmarkSub {
   margin-top: 8px;
@@ -76,182 +84,142 @@
   letter-spacing: .23em;
 }
 .region {
-  padding-top: 4px;
-  color: #79685a;
+  padding-top: 3px;
+  color: #79695c;
   font-size: 8px;
   font-weight: 500;
-  letter-spacing: .15em;
+  letter-spacing: .145em;
   white-space: nowrap;
 }
 
-/* "Dr. Frew" is the entire hero artwork. At rest it is editorial type;
-   under a fingertip the nearest letters lift, then settle back into place. */
+/* One composed name, with a consistent typographic baseline. */
 .identity {
-  position: relative;
-  z-index: 2;
   margin-block: auto;
-  padding: clamp(16px,4svh,35px) 0 6px;
+  padding: clamp(20px,4svh,42px) 0 10px;
 }
 .name {
-  display: block;
-  width: fit-content;
-  max-width: 100%;
   margin: 0;
-  font-family: var(--display);
-  font-weight: 400;
-  letter-spacing: -.055em;
-  font-kerning: normal;
-  line-height: .85;
-  color: var(--ink);
-  cursor: default;
-  touch-action: pan-y;
-  user-select: none;
-}
-.nameDoctor {
-  display: block;
-  margin-left: .06em;
-  font-size: clamp(53px,15vw,76px);
-  line-height: .85;
-  letter-spacing: -.065em;
-}
-.nameSurname {
-  display: inline-flex;
-  align-items: baseline;
-  font-size: clamp(105px,33vw,157px);
-  line-height: .86;
-  letter-spacing: -.064em;
   white-space: nowrap;
-  padding-right: .07em;
+  font-family: var(--display);
+  font-size: clamp(73px,20.5vw,101px);
+  font-weight: 400;
+  line-height: .97;
+  letter-spacing: -.053em;
+  font-kerning: normal;
+  font-optical-sizing: auto;
 }
-.letter {
-  display: inline-block;
-  margin-right: -.045em;
-  will-change: transform;
-  transform: translateY(var(--lift,0px)) rotate(var(--turn,0deg));
-  transform-origin: center 78%;
-  transition: transform 340ms var(--ease);
+.identityRule {
+  width: 35px;
+  height: 1px;
+  margin: 18px 0 16px;
+  background: #a8775e;
 }
 .credential {
-  margin: 22px 0 0;
+  margin: 0;
   font-size: 11.5px;
-  line-height: 1.4;
   font-weight: 500;
+  line-height: 1.45;
 }
 .specialty {
-  margin: 4px 0 0;
+  margin: 5px 0 0;
   color: #816d5e;
   font-size: 10px;
+  line-height: 1.4;
 }
 
 .destinations {
-  flex: none;
+  flex: 0 0 auto;
   color: #f2e9de;
   background: var(--espresso);
-  padding: 15px 29px max(16px, env(safe-area-inset-bottom,0px));
-}
-.indexHeading {
-  display: flex;
-  justify-content: space-between;
-  padding: 4px 0 10px;
-  color: #b4a49a;
-  font-size: 8px;
-  font-weight: 500;
-  letter-spacing: .18em;
+  padding: 19px 29px max(18px,env(safe-area-inset-bottom,0px));
 }
 .linkList { display: flex; flex-direction: column; }
 .link {
   position: relative;
   display: flex;
-  align-items: center;
   justify-content: space-between;
+  align-items: center;
   gap: 12px;
-  min-height: 66px;
+  min-height: 67px;
   border-top: 1px solid var(--light-rule);
   color: #f2e9de;
   text-decoration: none;
-  overflow: hidden;
-  transition: padding-left 270ms var(--ease), background-color 220ms ease;
+  transition: background-color 180ms ease, padding-left 180ms var(--ease);
 }
 .link:last-child { border-bottom: 1px solid var(--light-rule); }
-.link::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: -1px;
-  width: 100%;
-  height: 1px;
-  background: #b88468;
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform 370ms var(--ease);
-}
 .linkLabel {
   font-family: var(--display);
   font-size: clamp(27px,7.2vw,33px);
-  line-height: 1;
   font-weight: 500;
   letter-spacing: -.025em;
+  line-height: 1;
 }
-.arrow { color: #c18c72; flex: none; transition: transform 280ms var(--ease); }
-.link:active { background-color: rgba(243,232,220,.07); }
-.link:active .arrow { transform: translate(3px,-3px); }
-.link:active::after { transform: scaleX(1); }
+.arrow {
+  flex: none;
+  color: #c18c72;
+  transition: transform 180ms var(--ease);
+}
+.link:active { background: rgba(243,232,220,.07); }
+.link:active .arrow { transform: translate(2px,-2px); }
 .link:focus-visible, .wordmarkLink:focus-visible, .linkFooter a:focus-visible {
   outline: 2px solid #c18c72;
   outline-offset: 3px;
 }
-.link:focus-visible::after { transform: scaleX(1); }
 .linkFooter {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  margin-top: 13px;
+  margin-top: 17px;
   color: #b9a99e;
   font-size: 10px;
 }
 .linkFooter a {
   display: inline-flex;
   align-items: center;
-  min-height: 24px;
+  min-height: 36px;
   color: #e9e0d6;
   text-decoration: none;
   font-size: 11px;
 }
 .linkFooter a span { margin-left: 4px; color: #c18c72; }
 .disclaimer {
-  margin: 13px 0 0;
+  margin: 6px 0 0;
   color: #ad9a8b;
-  font-size: 9px;
+  font-size: 10px;
   line-height: 1.4;
 }
-@media (hover: hover) and (pointer: fine) {
-  .link:hover { padding-left: 5px; background: rgba(243,232,220,.028); }
+@media (hover:hover) and (pointer:fine) {
+  .link:hover { padding-left: 5px; background: rgba(243,232,220,.026); }
   .link:hover .arrow { transform: translate(3px,-3px); }
-  .link:hover::after { transform: scaleX(1); }
   .linkFooter a:hover { text-decoration: underline; text-underline-offset: 4px; }
 }
-@media (max-height: 700px) {
-  .hero { min-height: 252px; padding: max(17px,env(safe-area-inset-top,0px)) 24px 12px; }
+@media (max-height:710px) {
+  .hero { padding: max(16px,env(safe-area-inset-top,0px)) 24px 12px; }
   .wordmark { font-size: 38px; }
-  .identity { padding: 15px 0 3px; }
-  .nameDoctor { font-size: 50px; }
-  .nameSurname { font-size: clamp(100px,31vw,120px); }
-  .credential { margin-top: 11px; }
-  .destinations { padding: 10px 24px max(10px, env(safe-area-inset-bottom,0px)); }
-  .link { min-height: 55px; }
+  .identity { padding: 9px 0 5px; }
+  .name { font-size: clamp(66px,18.5vw,83px); }
+  .identityRule { margin: 10px 0; }
+  .destinations { padding: 11px 24px max(11px,env(safe-area-inset-bottom,0px)); }
+  .link { min-height: 57px; }
   .linkLabel { font-size: 27px; }
-  .indexHeading { padding: 1px 0 7px; }
-  .linkFooter { margin-top: 9px; }
-  .disclaimer { margin-top: 6px; }
+  .linkFooter { margin-top: 7px; }
+  .linkFooter a { min-height: 32px; }
+  .disclaimer { margin-top: 3px; }
 }
-@media (max-width: 340px) {
-  .wordmark { font-size: 38px; }
+@media (max-width:340px) {
+  .hero { padding-inline: 20px; }
   .region { font-size: 7px; }
-  .nameDoctor { font-size: 49px; }
-  .nameSurname { font-size: 106px; }
+  .name { font-size: 70px; }
+  .destinations { padding-inline: 20px; }
   .linkLabel { font-size: 27px; }
 }
-@media (prefers-reduced-motion: reduce) {
-  .letter, .link, .arrow, .link::after { transition: none; }
+@media (max-height:540px) {
+  /* Do not clip enlarged text on exceptionally short viewports. The fixed
+     shell becomes the only scroll area when content truly cannot fit. */
+  .hero { min-height: 220px; }
+}
+@media (prefers-reduced-motion:reduce) {
+  .link, .arrow { transition:none; }
+  .link:active .arrow, .link:hover .arrow { transform:none; }
 }
