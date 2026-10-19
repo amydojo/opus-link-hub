@@ -1,6 +1,6 @@
 @import url("https://fonts.bunny.net/css?family=cormorant-garamond:400,500,600&family=inter:400,500,600");
 
-/* OPUS — a digital calling card. One viewport, two materials, three choices. */
+/* OPUS — the surgeon's name is the form. No ornamental hero object. */
 .shell {
   --paper: #eee7dc;
   --espresso: #241b17;
@@ -10,15 +10,13 @@
   --ease: cubic-bezier(.22,1,.36,1);
   --display: "Cormorant Garamond", Georgia, serif;
   --utility: "Inter", Arial, sans-serif;
-  --px: 0px;
-  --py: 0px;
-  --spin: 0deg;
+
   display: flex;
   flex-direction: column;
   width: min(100%, 485px);
   min-height: 100vh;
   min-height: 100svh;
-  margin: auto;
+  margin-inline: auto;
   background: var(--paper);
   box-shadow: 0 22px 115px rgba(0,0,0,.13);
   font-family: var(--utility);
@@ -27,9 +25,6 @@
 }
 .shell * { box-sizing: border-box; }
 .shell a { touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
-.shell[data-active="0"] { --spin: -7deg; }
-.shell[data-active="1"] { --spin: 3deg; }
-.shell[data-active="2"] { --spin: 9deg; }
 .skipLink {
   position: absolute;
   top: -120px;
@@ -40,17 +35,18 @@
   color: var(--paper);
 }
 .skipLink:focus { top: 10px; }
+
 .hero {
   position: relative;
   isolation: isolate;
   overflow: hidden;
   flex: 1 1 auto;
-  min-height: 300px;
+  min-height: 290px;
   display: flex;
   flex-direction: column;
-  padding: max(26px, env(safe-area-inset-top,0px)) 29px 26px;
+  padding: max(26px, env(safe-area-inset-top,0px)) 29px 22px;
   color: var(--ink);
-  background: var(--paper);
+  background: linear-gradient(150deg,#f0eade 0%,#eee7dc 70%,#eae1d5 100%);
 }
 .topline {
   position: relative;
@@ -59,7 +55,6 @@
   align-items: flex-start;
   justify-content: space-between;
   gap: 12px;
-  animation: settle 630ms var(--ease) both;
 }
 .wordmarkLink {
   display: inline-flex;
@@ -88,50 +83,56 @@
   letter-spacing: .15em;
   white-space: nowrap;
 }
-.formStudy {
-  position: absolute;
-  z-index: 0;
-  left: 52%;
-  top: 46%;
-  width: min(83%,350px);
-  aspect-ratio: 1;
-  color: #956d58;
-  opacity: .90;
-  pointer-events: none;
-  will-change: transform;
-  transform: translate(calc(-50% + var(--px)),calc(-50% + var(--py)))
-    rotate(calc(-22deg + var(--spin)));
-  transition: transform 520ms var(--ease), color 500ms ease;
-  animation: sculptureEnter 1050ms var(--ease) both;
-}
-.shell[data-active="0"] .formStudy { color: #8b5235; }
-.shell[data-active="1"] .formStudy { color: #a87760; }
-.shell[data-active="2"] .formStudy { color: #8f6650; }
+
+/* "Dr. Frew" is the entire hero artwork. At rest it is editorial type;
+   under a fingertip the nearest letters lift, then settle back into place. */
 .identity {
   position: relative;
   z-index: 2;
-  margin-top: auto;
-  animation: settle 690ms var(--ease) 100ms both;
-}
-.kicker {
-  display: block;
-  margin-bottom: 8px;
-  color: #995b3d;
-  font-size: 9px;
-  font-weight: 500;
-  letter-spacing: .21em;
+  margin-block: auto;
+  padding: clamp(16px,4svh,35px) 0 6px;
 }
 .name {
+  display: block;
+  width: fit-content;
+  max-width: 100%;
   margin: 0;
   font-family: var(--display);
-  font-size: clamp(70px,20.5vw,108px);
   font-weight: 400;
-  line-height: .90;
-  letter-spacing: -.057em;
+  letter-spacing: -.055em;
+  font-kerning: normal;
+  line-height: .85;
+  color: var(--ink);
+  cursor: default;
+  touch-action: pan-y;
+  user-select: none;
+}
+.nameDoctor {
+  display: block;
+  margin-left: .06em;
+  font-size: clamp(53px,15vw,76px);
+  line-height: .85;
+  letter-spacing: -.065em;
+}
+.nameSurname {
+  display: inline-flex;
+  align-items: baseline;
+  font-size: clamp(105px,33vw,157px);
+  line-height: .86;
+  letter-spacing: -.064em;
   white-space: nowrap;
+  padding-right: .07em;
+}
+.letter {
+  display: inline-block;
+  margin-right: -.045em;
+  will-change: transform;
+  transform: translateY(var(--lift,0px)) rotate(var(--turn,0deg));
+  transform-origin: center 78%;
+  transition: transform 340ms var(--ease);
 }
 .credential {
-  margin: 14px 0 0;
+  margin: 22px 0 0;
   font-size: 11.5px;
   line-height: 1.4;
   font-weight: 500;
@@ -230,15 +231,13 @@
   .link:hover::after { transform: scaleX(1); }
   .linkFooter a:hover { text-decoration: underline; text-underline-offset: 4px; }
 }
-@media (min-width: 560px) {
-  .shell { margin-block: 0; }
-}
 @media (max-height: 700px) {
-  .hero { min-height: 255px; padding: max(18px, env(safe-area-inset-top,0px)) 24px 17px; }
+  .hero { min-height: 252px; padding: max(17px,env(safe-area-inset-top,0px)) 24px 12px; }
   .wordmark { font-size: 38px; }
-  .name { font-size: clamp(64px,20vw,76px); }
-  .formStudy { width: min(70%,260px); top: 48%; left: 54%; }
-  .credential { margin-top: 10px; }
+  .identity { padding: 15px 0 3px; }
+  .nameDoctor { font-size: 50px; }
+  .nameSurname { font-size: clamp(100px,31vw,120px); }
+  .credential { margin-top: 11px; }
   .destinations { padding: 10px 24px max(10px, env(safe-area-inset-bottom,0px)); }
   .link { min-height: 55px; }
   .linkLabel { font-size: 27px; }
@@ -249,18 +248,10 @@
 @media (max-width: 340px) {
   .wordmark { font-size: 38px; }
   .region { font-size: 7px; }
-  .name { font-size: 72px; }
+  .nameDoctor { font-size: 49px; }
+  .nameSurname { font-size: 106px; }
   .linkLabel { font-size: 27px; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .topline, .identity, .formStudy { animation: none; }
-  .formStudy, .link, .arrow, .link::after { transition: none; }
-}
-@keyframes settle {
-  from { opacity: 0; transform: translateY(8px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-@keyframes sculptureEnter {
-  from { opacity: 0; }
-  to { opacity: .90; }
+  .letter, .link, .arrow, .link::after { transition: none; }
 }
